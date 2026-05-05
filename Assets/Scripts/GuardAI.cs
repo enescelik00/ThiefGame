@@ -109,5 +109,6 @@ public class GuardAI : MonoBehaviour
         anim.SetBool("isWalking", false);
         if (gorusIsigi != null) gorusIsigi.color = Color.red;
         Debug.LogError("YAKALANDIN!");
+        hirsiz.GetComponent<HirsizKontrol>().YakalandiEkraniniGoster();
     }
 }
