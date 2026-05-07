@@ -1,39 +1,57 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio; // Mixer için þart
+using TMPro; // Dropdown için þart
 using System.Collections;
+using System.Collections.Generic;
 
 public class SettingsManager : MonoBehaviour
 {
-    [Header("Ses Ayarlarý")]
+    [Header("Ses ve Mixer")]
+    public AudioMixer mainMixer;
     public Slider musicSlider;
     public Slider soundSlider;
 
-    [Header("Titreþim Ayarlarý")]
+    [Header("Titreþim")]
     public Toggle vibrationToggle;
     public RectTransform toggleHandle;
-    public float onPositionX = -4f;
-    public float offPositionX = -44f;
+    public Image toggleBackground;
+    public Color onColor, offColor;
+    public float onPositionX = -4f, offPositionX = -44f;
 
-    [Header("Titreþim Renkleri")]
-    public Image toggleBackground; // Renk deðiþtirecek olan arka planýmýz (Yeþil Hap)
-    public Color onColor;  // Açýkkenki renk (Yeþil)
-    public Color offColor; // Kapalýykenki renk (Gri)
+    [Header("Dil Seçimi")]
+    public TMP_Dropdown languageDropdown;
 
     void Start()
     {
         LoadSettings();
     }
 
+    // --- SES FONKSÝYONLARI ---
     public void SetMusicVolume(float value)
     {
+        // Logaritmik dönüþüm: 0.0001 ile 1 arasýný -80dB ile 0dB arasýna çeker
+        float dbValue = Mathf.Log10(Mathf.Max(0.0001f, value)) * 20;
+        mainMixer.SetFloat("MusicVol", dbValue);
         PlayerPrefs.SetFloat("MusicVolume", value);
     }
 
     public void SetSoundVolume(float value)
     {
+        float dbValue = Mathf.Log10(Mathf.Max(0.0001f, value)) * 20;
+        mainMixer.SetFloat("SoundVol", dbValue);
         PlayerPrefs.SetFloat("SoundVolume", value);
     }
 
+    // --- DÝL FONKSÝYONU ---
+    public void SetLanguage(int index)
+    {
+        PlayerPrefs.SetInt("LanguageIndex", index);
+        Debug.Log("Seçilen Dil ID: " + index);
+        // Burada ileride Localization paketini tetikleyeceðiz
+    }
+
+    // --- TÝTREÞÝM (Önceki Turn'den) ---
     public void SetVibration(bool isOn)
     {
         PlayerPrefs.SetInt("Vibration", isOn ? 1 : 0);
@@ -41,48 +59,42 @@ public class SettingsManager : MonoBehaviour
         StartCoroutine(SlideToggle(isOn));
     }
 
-    // Hem pozisyonu hem rengi ayný anda yumuþakça deðiþtiren animasyon
     private IEnumerator SlideToggle(bool isOn)
     {
         float targetX = isOn ? onPositionX : offPositionX;
         Vector2 startPos = toggleHandle.anchoredPosition;
-        Vector2 targetPos = new Vector2(targetX, startPos.y);
-
         Color startColor = toggleBackground.color;
         Color targetColor = isOn ? onColor : offColor;
 
         float time = 0;
-        float duration = 0.15f;
-
-        while (time < duration)
+        while (time < 0.15f)
         {
             time += Time.deltaTime;
-            float t = time / duration; // 0 ile 1 arasýnda zaman çarpaný
-
-            // Pozisyonu kaydýr
-            toggleHandle.anchoredPosition = Vector2.Lerp(startPos, targetPos, t);
-
-            // Rengi soldur/canlandýr
+            float t = time / 0.15f;
+            toggleHandle.anchoredPosition = Vector2.Lerp(startPos, new Vector2(targetX, startPos.y), t);
             toggleBackground.color = Color.Lerp(startColor, targetColor, t);
-
             yield return null;
         }
-
-        // Animasyon bitince tam deðerleri oturt (hata payýný önlemek için)
-        toggleHandle.anchoredPosition = targetPos;
-        toggleBackground.color = targetColor;
     }
 
     private void LoadSettings()
     {
-        musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1f);
-        soundSlider.value = PlayerPrefs.GetFloat("SoundVolume", 1f);
+        // Sesleri Yükle
+        float mVol = PlayerPrefs.GetFloat("MusicVolume", 0.75f);
+        musicSlider.value = mVol;
+        SetMusicVolume(mVol);
 
-        bool isVibrationOn = PlayerPrefs.GetInt("Vibration", 1) == 1;
-        vibrationToggle.isOn = isVibrationOn;
+        float sVol = PlayerPrefs.GetFloat("SoundVolume", 0.75f);
+        soundSlider.value = sVol;
+        SetSoundVolume(sVol);
 
-        // Oyun ilk açýldýðýnda renk ve pozisyon anýnda ayarlansýn (animasyonsuz)
-        toggleHandle.anchoredPosition = new Vector2(isVibrationOn ? onPositionX : offPositionX, toggleHandle.anchoredPosition.y);
-        toggleBackground.color = isVibrationOn ? onColor : offColor;
+        // Titreþimi Yükle
+        bool isVib = PlayerPrefs.GetInt("Vibration", 1) == 1;
+        vibrationToggle.isOn = isVib;
+        toggleHandle.anchoredPosition = new Vector2(isVib ? onPositionX : offPositionX, toggleHandle.anchoredPosition.y);
+        toggleBackground.color = isVib ? onColor : offColor;
+
+        // Dili Yükle
+        languageDropdown.value = PlayerPrefs.GetInt("LanguageIndex", 0);
     }
 }
