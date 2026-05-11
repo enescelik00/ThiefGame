@@ -26,6 +26,8 @@ public class Wire : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (isConnected) return;
+
+        Debug.Log("<color=cyan>FARE KAREYÝ TUTTU VE ÇEKÝYOR!</color>");
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -50,23 +52,15 @@ public class Wire : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (isConnected) return;
-
-        // Buradaki Todo'yu siliyoruz, kilitlenme mantýðý "Slot" scriptinde olacak.
-        // Eðer slot orayý kilitlemezse, kablo geri içine kaçsýn (Sýfýrlansýn)
-        // Kilitlenme iþlemi IDropHandler interface'i üzerinden tetiklenecek.
-        // O yüzden sadece resetliyoruz, eðer Slot scripti orayý "Kilitleyecekse", 
-        // burasý Resetlendiðinde de isConnected true kalacak ve bir daha uzayamayacak.
-        // (IDragHandler içindeki return sayesinde).
-        Invoke("DelayedReset", 0.01f); // Hafif bir bekleme (Sinyalin Slot'a gitmesi için)
-    }
-
-    private void DelayedReset()
-    {
-        if (!isConnected) // Eðer Slot scripti orayý "Kilitlemediyse" resetle
+        
+        
+        if (isConnected)
         {
-            ResetWire();
+            return; // Kilitlendiyse hiçbir þey yapma, býrak orada kalsýn.
         }
+
+        
+        ResetWire();
     }
 
     // --- DIÞARIDAN ÇAÐRILACAK KÝLÝTLEME FONKSÝYONU ---
@@ -81,6 +75,12 @@ public class Wire : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
         // 2. Kilitleme: Renkler doðru
         isConnected = true;
+
+        WireTaskManager taskManager = GetComponentInParent<WireTaskManager>();
+        if (taskManager != null)
+        {
+            taskManager.WireConnected();
+        }
 
         // 3. Görsel Kilitlenme: Kabloyu tam karþý soketin merkezine sündür
         Vector2 localTargetPos;
