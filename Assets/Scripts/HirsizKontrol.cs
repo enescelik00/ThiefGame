@@ -13,6 +13,7 @@ public class HirsizKontrol : MonoBehaviour
     private Animator anim;
     private Vector3 hareketYonu;
     private bool yakalandiMi = false;
+    public bool hackYapiyorMu = false;
 
     void Start()
     {
@@ -29,7 +30,7 @@ public class HirsizKontrol : MonoBehaviour
     
         void Update()
         {
-            if (yakalandiMi) return;
+            if (yakalandiMi || hackYapiyorMu) return;
 
             float yatay = Input.GetAxisRaw("Horizontal"); // A ve D
             float dikey = Input.GetAxisRaw("Vertical");   // W ve S
@@ -61,9 +62,11 @@ public class HirsizKontrol : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (yakalandiMi)
+        if (yakalandiMi || hackYapiyorMu) // YENİ HALİ
         {
-            rb.linearVelocity = Vector3.zero;
+            // Kaymayı durdur ama Y eksenindeki yerçekimini (düşmeyi) koru
+            rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
+            anim.SetBool("isWalking", false); // Yürüme animasyonunu zorla kes
             return;
         }
 

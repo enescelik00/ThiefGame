@@ -2,26 +2,42 @@ using UnityEngine;
 
 public class MiniGameController : MonoBehaviour
 {
-    // Bu fonksiyon, bu scriptin baðlý olduðu obje AKTÝF (Visible) edildiðinde otomatik çalýþýr.
+    private HirsizKontrol hirsiz;
+
+    void Awake()
+    {
+        // Sahnedeki hýrsýzý otomatik olarak bulur (Sürükle-býrak yapmana gerek yok!)
+        hirsiz = FindFirstObjectByType<HirsizKontrol>();
+    }
+
     void OnEnable()
     {
-        // 1. Oyunu Dondur (Arka plandaki fizik ve hareketler durur)
-        Time.timeScale = 0f;
+        // 1. Zaman ARTIK DURMUYOR! Dünya yaþamaya devam ediyor.
+        Time.timeScale = 1f;
 
-        // 2. Fareyi serbest býrak ve görünür yap (Arka plandaki kodlar fareyi gizlediyse diye)
+        // 2. Fareyi serbest býrak ve görünür yap (Minigame oynamak için)
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        Debug.Log("Mini-Game Açýldý: Zaman Durdu!");
+        // 3. Karakteri dondur
+        if (hirsiz != null)
+        {
+            hirsiz.hackYapiyorMu = true;
+        }
+
+        Debug.Log("Sisteme Girildi: Karakter kilitlendi, NPC'ler hala hareket ediyor!");
     }
 
-    // Bu fonksiyon, obje KAPATILDIÐINDA veya SÝLÝNDÝÐÝNDE otomatik çalýþýr.
     void OnDisable()
     {
-        // 1. Oyunu geri baþlat
-        Time.timeScale = 1f;
+        // 1. Karakterin kilidini aç
+        if (hirsiz != null)
+        {
+            hirsiz.hackYapiyorMu = false;
+        }
 
-        // Not: Eðer oyununda normalde fare gizliyse buraya Cursor.visible = false; ekleyebilirsin.
-        Debug.Log("Mini-Game Kapandý: Oyun Akýyor!");
+        // NOT: Eðer oyununda normal yürürken fare gizliyse, buraya Cursor.visible = false; ekleyebilirsin.
+
+        Debug.Log("Sistemden Çýkýldý: Hýrsýz harekete hazýr!");
     }
 }
