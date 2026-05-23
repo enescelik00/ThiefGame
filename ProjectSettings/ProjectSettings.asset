@@ -940,11 +940,11 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: a3919ff3-ee05-4ad1-a848-84fcb26413b2
+  cloudProjectId: 1a29345c-f243-4e8e-bb15-d286bf30ed32
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Thief
-  organizationId: emreseker
+  projectName: ThiefGame
+  organizationId: enes_celik
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
