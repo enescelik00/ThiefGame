@@ -5,16 +5,26 @@ using UnityEngine.EventSystems;
 public class TimingTaskLogic : MonoBehaviour, IPointerClickHandler
 {
     [Header("UI Referanslarý")]
-    public RectTransform pointerHolder; // Üçgeni taþýyan boþ kutu (Holder)
-    public Image targetZoneImage; // Kýrmýzý alan (Filled Image)
+    public RectTransform pointerHolder;
+    public RectTransform targetGroup;
+    public Image greenZoneImage;
+    public Image redZoneImage;
 
-    [Header("Oyun Ayarlarý")]
-    public float rotationSpeed = 150f;
-    public float targetZoneWidth = 45f;
+    [Header("Oyun / Boyut Ayarlarý")]
+    public float rotationSpeed = 200f;
+    public float minGreenAngle = 25f;
+    public float maxGreenAngle = 55f;
+
+    [Tooltip("Kýrmýzý alan yeþilin kaç katý olacak? (Örn: 2 ise kýrmýzý alan yeþilin tam 2 katý olur)")]
+    public float redZoneMultiplier = 2f; // YENÝ: Sabit taþma yerine orantýlý kat sayý
+
     public int requiredSuccesses = 3;
 
     private float currentPointerAngle = 0f;
-    private float targetStartAngle;
+    private float currentTargetAngle = 0f;
+    private float currentGreenWidth = 0f;
+    private float currentOffset = 0f;
+
     private bool isTaskComplete = false;
     private int currentSuccesses = 0;
 
@@ -27,27 +37,31 @@ public class TimingTaskLogic : MonoBehaviour, IPointerClickHandler
 
     void SetupNewTarget()
     {
-        // Hedefi rastgele bir açýya koy (0-360)
-        targetStartAngle = Random.Range(0f, 360f);
+        // 1. Yeþil alanýn rastgele boyutunu belirle
+        currentGreenWidth = Random.Range(minGreenAngle, maxGreenAngle);
 
-        // Görseli o açýya döndür
-        targetZoneImage.rectTransform.localRotation = Quaternion.Euler(0f, 0f, targetStartAngle);
+        // 2. Kýrmýzý alanýn boyutunu yeþile ORANTILI olarak hesapla
+        float currentRedWidth = currentGreenWidth * redZoneMultiplier;
 
-        // Geniþliðini ayarla
-        targetZoneImage.fillAmount = targetZoneWidth / 360f;
+        currentTargetAngle = Random.Range(0f, 360f);
+        targetGroup.localRotation = Quaternion.Euler(0f, 0f, currentTargetAngle);
+
+        greenZoneImage.fillAmount = currentGreenWidth / 360f;
+        redZoneImage.fillAmount = currentRedWidth / 360f;
+
+        // 3. Yeþili Kýrmýzýnýn Ortasýna Kaydýr (Orantýlý sisteme göre)
+        currentOffset = (currentRedWidth - currentGreenWidth) / 2f;
+        greenZoneImage.rectTransform.localRotation = Quaternion.Euler(0f, 0f, -currentOffset);
     }
 
     void Update()
     {
         if (isTaskComplete) return;
 
-        // Üçgeni saat yönünde döndür
-        currentPointerAngle -= rotationSpeed * Time.unscaledDeltaTime;
+        currentPointerAngle -= rotationSpeed * Time.deltaTime;
 
-        // Açýyý 0-360 arasýnda normalize et
-        currentPointerAngle = (currentPointerAngle % 360f + 360f) % 360f;
+        if (currentPointerAngle <= -360f) currentPointerAngle += 360f;
 
-        // Holder'ý döndür
         pointerHolder.localRotation = Quaternion.Euler(0f, 0f, currentPointerAngle);
     }
 
@@ -55,11 +69,25 @@ public class TimingTaskLogic : MonoBehaviour, IPointerClickHandler
     {
         if (isTaskComplete) return;
 
-        // --- YENÝLENMÝÞ MATEMATÝKSEL KONTROL ---
-        // Unity'nin 'Filled' Image (Top Origin) mantýðý saat yönünde iþlediði için
-        // Hedef alan aslýnda [targetStartAngle - targetZoneWidth] ile [targetStartAngle] arasýndadýr.
+        float normalizedPointer = (currentPointerAngle % 360f + 360f) % 360f;
+        float greenStartAngle = (currentTargetAngle - currentOffset + 360f) % 360f;
+        float greenEndAngle = (greenStartAngle - currentGreenWidth + 360f) % 360f;
 
-        if (IsAngleInRange(currentPointerAngle, targetStartAngle, targetZoneWidth))
+        bool isHit = false;
+
+        // %100 Sadece Yeþil Alan Kontrolü
+        if (greenStartAngle > greenEndAngle)
+        {
+            if (normalizedPointer <= greenStartAngle && normalizedPointer >= greenEndAngle)
+                isHit = true;
+        }
+        else
+        {
+            if (normalizedPointer <= greenStartAngle || normalizedPointer >= greenEndAngle)
+                isHit = true;
+        }
+
+        if (isHit)
         {
             currentSuccesses++;
             Debug.Log("<color=cyan>BAÞARILI! Kombo: " + currentSuccesses + "</color>");
@@ -76,27 +104,8 @@ public class TimingTaskLogic : MonoBehaviour, IPointerClickHandler
         else
         {
             currentSuccesses = 0;
-            Debug.Log("<color=red>ISKALADIN!</color> Kombo sýfýrlandý.");
+            Debug.Log("<color=red>ISKALADIN! Kombo sýfýrlandý.</color>");
             SetupNewTarget();
-        }
-    }
-
-    // Bu fonksiyon artýk 'Filled' mantýðýna (saat yönüne) göre çalýþýyor
-    bool IsAngleInRange(float pointerAngle, float startAngle, float width)
-    {
-        // Hedefin bitiþ açýsýný (saat yönünde geriye doðru) hesapla
-        float endAngle = (startAngle - width + 360f) % 360f;
-        float s = (startAngle + 360f) % 360f;
-        float p = (pointerAngle + 360f) % 360f;
-
-        // Wraparound (Sýfýr noktasýný aþma) durumu kontrolü
-        if (endAngle > s)
-        {
-            return (p <= s || p >= endAngle);
-        }
-        else
-        {
-            return (p <= s && p >= endAngle);
         }
     }
 
@@ -104,7 +113,7 @@ public class TimingTaskLogic : MonoBehaviour, IPointerClickHandler
     {
         isTaskComplete = true;
         Debug.Log("<color=green>HACK TAMAMLANDI!</color>");
-        Invoke("DelayedClosePanel", 0.5f);
+        Invoke(nameof(DelayedClosePanel), 0.5f);
     }
 
     void DelayedClosePanel()
