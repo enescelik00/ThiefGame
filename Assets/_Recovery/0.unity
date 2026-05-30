@@ -7133,9 +7133,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimingTaskLogic
   pointerHolder: {fileID: 1935071151}
-  targetZoneImage: {fileID: 1748893657}
+  targetGroup: {fileID: 0}
+  greenZoneImage: {fileID: 0}
+  redZoneImage: {fileID: 0}
   rotationSpeed: 120
-  targetZoneWidth: 45
+  minGreenAngle: 25
+  maxGreenAngle: 55
+  redZoneMultiplier: 2
   requiredSuccesses: 3
 --- !u!114 &2066123041
 MonoBehaviour:
