@@ -2788,6 +2788,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 690229479598235068, guid: 247096df589c7ab4eb058c3c17f4dc84, type: 3}
+      propertyPath: waypoints.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 690229479598235068, guid: 247096df589c7ab4eb058c3c17f4dc84, type: 3}
       propertyPath: duraklar.Array.data[0].nokta
       value: 
       objectReference: {fileID: 1781677444}
@@ -2797,6 +2801,18 @@ PrefabInstance:
       objectReference: {fileID: 661725099}
     - target: {fileID: 690229479598235068, guid: 247096df589c7ab4eb058c3c17f4dc84, type: 3}
       propertyPath: duraklar.Array.data[2].nokta
+      value: 
+      objectReference: {fileID: 1910141511}
+    - target: {fileID: 690229479598235068, guid: 247096df589c7ab4eb058c3c17f4dc84, type: 3}
+      propertyPath: waypoints.Array.data[0].nokta
+      value: 
+      objectReference: {fileID: 1781677444}
+    - target: {fileID: 690229479598235068, guid: 247096df589c7ab4eb058c3c17f4dc84, type: 3}
+      propertyPath: waypoints.Array.data[1].nokta
+      value: 
+      objectReference: {fileID: 661725099}
+    - target: {fileID: 690229479598235068, guid: 247096df589c7ab4eb058c3c17f4dc84, type: 3}
+      propertyPath: waypoints.Array.data[2].nokta
       value: 
       objectReference: {fileID: 1910141511}
     - target: {fileID: 4994762128105510955, guid: 247096df589c7ab4eb058c3c17f4dc84, type: 3}
@@ -4156,6 +4172,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6669207333055494820, guid: 6b6bd98d6ced42e4e96e32e960f60aff, type: 3}
+      propertyPath: yakalanmaEkrani
+      value: 
+      objectReference: {fileID: 1843144125}
+    - target: {fileID: 6669207333055494820, guid: 6b6bd98d6ced42e4e96e32e960f60aff, type: 3}
       propertyPath: waypoints.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -4165,6 +4185,14 @@ PrefabInstance:
       objectReference: {fileID: 395481846}
     - target: {fileID: 6669207333055494820, guid: 6b6bd98d6ced42e4e96e32e960f60aff, type: 3}
       propertyPath: 'waypoints.Array.data[1]'
+      value: 
+      objectReference: {fileID: 947295794}
+    - target: {fileID: 6669207333055494820, guid: 6b6bd98d6ced42e4e96e32e960f60aff, type: 3}
+      propertyPath: waypoints.Array.data[0].nokta
+      value: 
+      objectReference: {fileID: 395481846}
+    - target: {fileID: 6669207333055494820, guid: 6b6bd98d6ced42e4e96e32e960f60aff, type: 3}
+      propertyPath: waypoints.Array.data[1].nokta
       value: 
       objectReference: {fileID: 947295794}
     - target: {fileID: 7442863989028204683, guid: 6b6bd98d6ced42e4e96e32e960f60aff, type: 3}
@@ -12813,6 +12841,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 690229479598235068, guid: 247096df589c7ab4eb058c3c17f4dc84, type: 3}
+      propertyPath: waypoints.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 690229479598235068, guid: 247096df589c7ab4eb058c3c17f4dc84, type: 3}
       propertyPath: duraklar.Array.data[0].nokta
       value: 
       objectReference: {fileID: 1963043821}
@@ -12830,6 +12862,26 @@ PrefabInstance:
       objectReference: {fileID: 1586132933}
     - target: {fileID: 690229479598235068, guid: 247096df589c7ab4eb058c3c17f4dc84, type: 3}
       propertyPath: duraklar.Array.data[4].nokta
+      value: 
+      objectReference: {fileID: 665101850}
+    - target: {fileID: 690229479598235068, guid: 247096df589c7ab4eb058c3c17f4dc84, type: 3}
+      propertyPath: waypoints.Array.data[0].nokta
+      value: 
+      objectReference: {fileID: 1963043821}
+    - target: {fileID: 690229479598235068, guid: 247096df589c7ab4eb058c3c17f4dc84, type: 3}
+      propertyPath: waypoints.Array.data[1].nokta
+      value: 
+      objectReference: {fileID: 168581732}
+    - target: {fileID: 690229479598235068, guid: 247096df589c7ab4eb058c3c17f4dc84, type: 3}
+      propertyPath: waypoints.Array.data[2].nokta
+      value: 
+      objectReference: {fileID: 1906950129}
+    - target: {fileID: 690229479598235068, guid: 247096df589c7ab4eb058c3c17f4dc84, type: 3}
+      propertyPath: waypoints.Array.data[3].nokta
+      value: 
+      objectReference: {fileID: 1586132933}
+    - target: {fileID: 690229479598235068, guid: 247096df589c7ab4eb058c3c17f4dc84, type: 3}
+      propertyPath: waypoints.Array.data[4].nokta
       value: 
       objectReference: {fileID: 665101850}
     - target: {fileID: 4994762128105510955, guid: 247096df589c7ab4eb058c3c17f4dc84, type: 3}
@@ -14241,6 +14293,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4545424389167057167, guid: 72be0cd028dccc347ba0f037641288a8, type: 3}
+      propertyPath: waypoints.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4545424389167057167, guid: 72be0cd028dccc347ba0f037641288a8, type: 3}
       propertyPath: duraklar.Array.data[0].nokta
       value: 
       objectReference: {fileID: 590988878}
@@ -14254,6 +14310,22 @@ PrefabInstance:
       objectReference: {fileID: 506747346}
     - target: {fileID: 4545424389167057167, guid: 72be0cd028dccc347ba0f037641288a8, type: 3}
       propertyPath: duraklar.Array.data[3].nokta
+      value: 
+      objectReference: {fileID: 1066416978}
+    - target: {fileID: 4545424389167057167, guid: 72be0cd028dccc347ba0f037641288a8, type: 3}
+      propertyPath: waypoints.Array.data[0].nokta
+      value: 
+      objectReference: {fileID: 590988878}
+    - target: {fileID: 4545424389167057167, guid: 72be0cd028dccc347ba0f037641288a8, type: 3}
+      propertyPath: waypoints.Array.data[1].nokta
+      value: 
+      objectReference: {fileID: 1496064336}
+    - target: {fileID: 4545424389167057167, guid: 72be0cd028dccc347ba0f037641288a8, type: 3}
+      propertyPath: waypoints.Array.data[2].nokta
+      value: 
+      objectReference: {fileID: 506747346}
+    - target: {fileID: 4545424389167057167, guid: 72be0cd028dccc347ba0f037641288a8, type: 3}
+      propertyPath: waypoints.Array.data[3].nokta
       value: 
       objectReference: {fileID: 1066416978}
     - target: {fileID: 4545424389167057167, guid: 72be0cd028dccc347ba0f037641288a8, type: 3}
@@ -14763,6 +14835,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4545424389167057167, guid: 72be0cd028dccc347ba0f037641288a8, type: 3}
+      propertyPath: waypoints.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4545424389167057167, guid: 72be0cd028dccc347ba0f037641288a8, type: 3}
       propertyPath: duraklar.Array.data[0].nokta
       value: 
       objectReference: {fileID: 1831444600}
@@ -14772,6 +14848,18 @@ PrefabInstance:
       objectReference: {fileID: 991186745}
     - target: {fileID: 4545424389167057167, guid: 72be0cd028dccc347ba0f037641288a8, type: 3}
       propertyPath: duraklar.Array.data[2].nokta
+      value: 
+      objectReference: {fileID: 1395947227}
+    - target: {fileID: 4545424389167057167, guid: 72be0cd028dccc347ba0f037641288a8, type: 3}
+      propertyPath: waypoints.Array.data[0].nokta
+      value: 
+      objectReference: {fileID: 1831444600}
+    - target: {fileID: 4545424389167057167, guid: 72be0cd028dccc347ba0f037641288a8, type: 3}
+      propertyPath: waypoints.Array.data[1].nokta
+      value: 
+      objectReference: {fileID: 991186745}
+    - target: {fileID: 4545424389167057167, guid: 72be0cd028dccc347ba0f037641288a8, type: 3}
+      propertyPath: waypoints.Array.data[2].nokta
       value: 
       objectReference: {fileID: 1395947227}
     - target: {fileID: 4545424389167057167, guid: 72be0cd028dccc347ba0f037641288a8, type: 3}
@@ -16693,6 +16781,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 855367111295819177, guid: b48194818bbf8e644906d9dc357c1177, type: 3}
+      propertyPath: waypoints.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 855367111295819177, guid: b48194818bbf8e644906d9dc357c1177, type: 3}
       propertyPath: duraklar.Array.data[0].nokta
       value: 
       objectReference: {fileID: 420833351}
@@ -16702,6 +16794,18 @@ PrefabInstance:
       objectReference: {fileID: 554369906}
     - target: {fileID: 855367111295819177, guid: b48194818bbf8e644906d9dc357c1177, type: 3}
       propertyPath: duraklar.Array.data[2].nokta
+      value: 
+      objectReference: {fileID: 499989449}
+    - target: {fileID: 855367111295819177, guid: b48194818bbf8e644906d9dc357c1177, type: 3}
+      propertyPath: waypoints.Array.data[0].nokta
+      value: 
+      objectReference: {fileID: 420833351}
+    - target: {fileID: 855367111295819177, guid: b48194818bbf8e644906d9dc357c1177, type: 3}
+      propertyPath: waypoints.Array.data[1].nokta
+      value: 
+      objectReference: {fileID: 554369906}
+    - target: {fileID: 855367111295819177, guid: b48194818bbf8e644906d9dc357c1177, type: 3}
+      propertyPath: waypoints.Array.data[2].nokta
       value: 
       objectReference: {fileID: 499989449}
     - target: {fileID: 855367111295819177, guid: b48194818bbf8e644906d9dc357c1177, type: 3}
@@ -17222,6 +17326,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 855367111295819177, guid: b48194818bbf8e644906d9dc357c1177, type: 3}
+      propertyPath: waypoints.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 855367111295819177, guid: b48194818bbf8e644906d9dc357c1177, type: 3}
       propertyPath: duraklar.Array.data[0].nokta
       value: 
       objectReference: {fileID: 243658771}
@@ -17231,6 +17339,18 @@ PrefabInstance:
       objectReference: {fileID: 781178797}
     - target: {fileID: 855367111295819177, guid: b48194818bbf8e644906d9dc357c1177, type: 3}
       propertyPath: duraklar.Array.data[2].nokta
+      value: 
+      objectReference: {fileID: 930821109}
+    - target: {fileID: 855367111295819177, guid: b48194818bbf8e644906d9dc357c1177, type: 3}
+      propertyPath: waypoints.Array.data[0].nokta
+      value: 
+      objectReference: {fileID: 243658771}
+    - target: {fileID: 855367111295819177, guid: b48194818bbf8e644906d9dc357c1177, type: 3}
+      propertyPath: waypoints.Array.data[1].nokta
+      value: 
+      objectReference: {fileID: 781178797}
+    - target: {fileID: 855367111295819177, guid: b48194818bbf8e644906d9dc357c1177, type: 3}
+      propertyPath: waypoints.Array.data[2].nokta
       value: 
       objectReference: {fileID: 930821109}
     - target: {fileID: 855367111295819177, guid: b48194818bbf8e644906d9dc357c1177, type: 3}
@@ -19220,6 +19340,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6669207333055494820, guid: 6b6bd98d6ced42e4e96e32e960f60aff, type: 3}
+      propertyPath: yakalanmaEkrani
+      value: 
+      objectReference: {fileID: 1843144125}
+    - target: {fileID: 6669207333055494820, guid: 6b6bd98d6ced42e4e96e32e960f60aff, type: 3}
       propertyPath: 'waypoints.Array.data[0]'
       value: 
       objectReference: {fileID: 588107888}
@@ -19229,6 +19353,18 @@ PrefabInstance:
       objectReference: {fileID: 139183834}
     - target: {fileID: 6669207333055494820, guid: 6b6bd98d6ced42e4e96e32e960f60aff, type: 3}
       propertyPath: 'waypoints.Array.data[2]'
+      value: 
+      objectReference: {fileID: 189655168}
+    - target: {fileID: 6669207333055494820, guid: 6b6bd98d6ced42e4e96e32e960f60aff, type: 3}
+      propertyPath: waypoints.Array.data[0].nokta
+      value: 
+      objectReference: {fileID: 588107888}
+    - target: {fileID: 6669207333055494820, guid: 6b6bd98d6ced42e4e96e32e960f60aff, type: 3}
+      propertyPath: waypoints.Array.data[1].nokta
+      value: 
+      objectReference: {fileID: 139183834}
+    - target: {fileID: 6669207333055494820, guid: 6b6bd98d6ced42e4e96e32e960f60aff, type: 3}
+      propertyPath: waypoints.Array.data[2].nokta
       value: 
       objectReference: {fileID: 189655168}
     - target: {fileID: 7442863989028204683, guid: 6b6bd98d6ced42e4e96e32e960f60aff, type: 3}
@@ -19345,6 +19481,11 @@ RectTransform:
 --- !u!1 &1843144124 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3438533064813459998, guid: 23f86472b9cfc974688478389f00b808, type: 3}
+  m_PrefabInstance: {fileID: 1843144122}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1843144125 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 129652619788120341, guid: 23f86472b9cfc974688478389f00b808, type: 3}
   m_PrefabInstance: {fileID: 1843144122}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1862355197 stripped
