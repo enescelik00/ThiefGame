@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7144149675356282658}
   - component: {fileID: 4040807864312270136}
   - component: {fileID: -2134754538807066633}
+  - component: {fileID: 8406365766538907418}
   m_Layer: 5
   m_Name: Money_Obje
   m_TagString: Untagged
@@ -145,3 +146,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 509741c7d7058ea4f9fc1099235a8b4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EsyaTikla
+--- !u!114 &8406365766538907418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7865695021673879491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2244d466c5630d479714a956137a3f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EsyaOzellikleri
+  esyaAdi: "Para_Torbas\u0131"
+  fiyat: 100

@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Duvarlar
+  - Anahtar
   layers:
   - Default
   - TransparentFX

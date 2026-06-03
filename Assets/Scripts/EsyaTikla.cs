@@ -20,6 +20,13 @@ public class EsyaTikla : MonoBehaviour
 
             // Ekstra: Týkladýktan sonra boyutunun bozulmamasý için
             transform.localScale = Vector3.one;
+
+            // ---- AKILLI GÖREV KONTROLÜ ----
+            // Eðer çantaya eklenen bu eþyanýn etiketi (Tag) "Anahtar" ise görevi güncelle!
+            if (gameObject.CompareTag("Anahtar"))
+            {
+                GorevSistemi.instance.AnahtarBulundu();
+            }
         }
     }
 }
