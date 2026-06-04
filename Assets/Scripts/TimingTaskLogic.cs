@@ -2,7 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class TimingTaskLogic : MonoBehaviour, IPointerClickHandler
+// 1. MonoBehaviour yerine MinigameBase'den miras alýyoruz
+public class TimingTaskLogic : MinigameBase, IPointerClickHandler
 {
     [Header("UI Referanslarý")]
     public RectTransform pointerHolder;
@@ -16,7 +17,7 @@ public class TimingTaskLogic : MonoBehaviour, IPointerClickHandler
     public float maxGreenAngle = 55f;
 
     [Tooltip("Kýrmýzý alan yeþilin kaç katý olacak? (Örn: 2 ise kýrmýzý alan yeþilin tam 2 katý olur)")]
-    public float redZoneMultiplier = 2f; // YENÝ: Sabit taþma yerine orantýlý kat sayý
+    public float redZoneMultiplier = 2f;
 
     public int requiredSuccesses = 3;
 
@@ -32,6 +33,39 @@ public class TimingTaskLogic : MonoBehaviour, IPointerClickHandler
     {
         isTaskComplete = false;
         currentSuccesses = 0;
+        // NOT: SetupNewTarget() fonksiyonunu buradan kaldýrdýk, 
+        // çünkü artýk tetikleyiciden zorluk ayarý gelince SetupDifficulty içinden çaðrýlacak.
+    }
+
+    // 2. Dýþarýdan tetikleyici (kasa/kapý) tarafýndan çaðrýlan zorluk ayarý fonksiyonu
+    public override void SetupDifficulty(MinigameDifficulty difficulty)
+    {
+        base.SetupDifficulty(difficulty);
+
+        // Kasadan gelen zorluða göre oyun parametrelerini dinamik olarak deðiþtiriyoruz
+        if (difficulty == MinigameDifficulty.Easy)
+        {
+            rotationSpeed = 150f;       // Daha yavaþ dönen ibre
+            requiredSuccesses = 2;      // 2 baþarýlý kombo yeterli
+            minGreenAngle = 40f;        // Yeþil alan daha geniþ
+            maxGreenAngle = 60f;
+        }
+        else if (difficulty == MinigameDifficulty.Medium)
+        {
+            rotationSpeed = 220f;       // Orta hýz
+            requiredSuccesses = 3;      // 3 baþarýlý kombo
+            minGreenAngle = 30f;        // Orta geniþlikte yeþil alan
+            maxGreenAngle = 50f;
+        }
+        else if (difficulty == MinigameDifficulty.Hard)
+        {
+            rotationSpeed = 300f;       // Çok hýzlý dönen ibre
+            requiredSuccesses = 4;      // Üst üste 4 kombo þart
+            minGreenAngle = 18f;        // Ýncecik, vurmasý zor yeþil alan
+            maxGreenAngle = 30f;
+        }
+
+        // Parametreler ayarlandýktan sonra ilk hedefi oluþtur
         SetupNewTarget();
     }
 
@@ -118,6 +152,8 @@ public class TimingTaskLogic : MonoBehaviour, IPointerClickHandler
 
     void DelayedClosePanel()
     {
-        gameObject.SetActive(false);
+        // 3. Ekraný kapatma iþini base class'a devrediyoruz.
+        // Böylece hýrsýzýn donmasý çözülecek, fare kilitlenecek ve kapý/kasa tetiklenecek.
+        WinMinigame();
     }
 }

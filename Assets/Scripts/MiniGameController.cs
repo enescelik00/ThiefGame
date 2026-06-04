@@ -36,7 +36,9 @@ public class MiniGameController : MonoBehaviour
             hirsiz.hackYapiyorMu = false;
         }
 
-        // NOT: Eðer oyununda normal yürürken fare gizliyse, buraya Cursor.visible = false; ekleyebilirsin.
+        // 2. Fareyi gizle ve kilitle (Normal oyun moduna dönüþ)
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
 
         Debug.Log("Sistemden Çýkýldý: Hýrsýz harekete hazýr!");
     }
