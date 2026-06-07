@@ -44,10 +44,8 @@ public class GorevSistemi : MonoBehaviour
     {
         if (gorevYazisi == null) return;
 
-        // İstersen "Görevler :" başlığını da kalın (Bold) yapmak için TextMeshPro'nun <b> etiketini kullanabiliriz
         string metin = "<b>Görevler :</b>\n";
 
-        // Tire (-) yerine İçi Boş Kare (□) veya İçi Dolu Kare (■) kullanıyoruz
         if (!kameraKapatildi)
         {
             metin += "□ Kamera Sistemini Devre Dışı Bırak\n";
@@ -63,7 +61,8 @@ public class GorevSistemi : MonoBehaviour
         }
         else
         {
-            metin += "□ Çıkışa Ulaş ve Kaç!\n";
+            // İŞTE BURASI! Kasa da açıldığında bu kırmızı ve kalın yazı devreye girecek.
+            metin += "<color=red><b>■ 🏃‍♂️ Çıkışa Ulaş ve Kaç!</b></color>\n";
         }
 
         gorevYazisi.text = metin;
