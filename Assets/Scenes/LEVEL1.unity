@@ -3370,6 +3370,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.017534237, y: 0.018591005, z: 0.016947163}
   m_Center: {x: 0.00076321134, y: -0.000000007450581, z: 0.0015264201}
+--- !u!114 &863018805 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 585324693536157081, guid: 2520cb1d110d6854dbaa239b857a35ac, type: 3}
+  m_PrefabInstance: {fileID: 3177372619795701401}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df15ff75b236dbb4ca6537adba97e976, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VirtualJoystick
 --- !u!1 &863124030 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6207217367888475920, guid: 3b5621da212294745b1205f2d154072d, type: 3}
@@ -9933,6 +9944,18 @@ PrefabInstance:
       propertyPath: oyuncuEnvanteri
       value: 
       objectReference: {fileID: 1883264852}
+    - target: {fileID: 4251644969633937344, guid: a812e8372cd07dd439bdaa4769aaf8c5, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251644969633937344, guid: a812e8372cd07dd439bdaa4769aaf8c5, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251644969633937344, guid: a812e8372cd07dd439bdaa4769aaf8c5, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 6593869363748052684, guid: a812e8372cd07dd439bdaa4769aaf8c5, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -10070,6 +10093,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7576750257655185544, guid: b48588c2364aa924a93a304e0ab358a8, type: 3}
+      propertyPath: virtualJoystick
+      value: 
+      objectReference: {fileID: 863018805}
     - target: {fileID: 7576750257655185544, guid: b48588c2364aa924a93a304e0ab358a8, type: 3}
       propertyPath: yakalanmaEkrani
       value: 
@@ -10327,6 +10354,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 149570915649841760, guid: 2520cb1d110d6854dbaa239b857a35ac, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3652dddbb633aa1498977c61ade194eb, type: 3}
+    - target: {fileID: 149570915649841760, guid: 2520cb1d110d6854dbaa239b857a35ac, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 662044502444266907, guid: 2520cb1d110d6854dbaa239b857a35ac, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f1d56298f2b7f744cbeb3b7a56dd4790, type: 3}
+    - target: {fileID: 662044502444266907, guid: 2520cb1d110d6854dbaa239b857a35ac, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3096211894900177557, guid: 2520cb1d110d6854dbaa239b857a35ac, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3767335216100771720, guid: 2520cb1d110d6854dbaa239b857a35ac, type: 3}
       propertyPath: m_Name
       value: "Canvas(oyun i\xE7i)"
@@ -10410,6 +10457,14 @@ PrefabInstance:
     - target: {fileID: 6317160372807360217, guid: 2520cb1d110d6854dbaa239b857a35ac, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635656104423795504, guid: 2520cb1d110d6854dbaa239b857a35ac, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635656104423795504, guid: 2520cb1d110d6854dbaa239b857a35ac, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10719,6 +10774,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 985511529348776894, guid: 5cd7f79c1f4f5604db4660072a6ff29c, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 985511529348776894, guid: 5cd7f79c1f4f5604db4660072a6ff29c, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 985511529348776894, guid: 5cd7f79c1f4f5604db4660072a6ff29c, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 3778548139329709406, guid: 5cd7f79c1f4f5604db4660072a6ff29c, type: 3}
       propertyPath: m_Name
       value: TutorialCanvas

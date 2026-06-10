@@ -1,18 +1,18 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class TutorialSistemi : MonoBehaviour
 {
-    [Header("Oyun Başlayınca Açılacak Arayüzler")]
+    [Header("Oyun BaÅŸlayÄ±nca AÃ§Ä±lacak ArayÃ¼zler")]
     public GameObject saatCanvasi;
     public GameObject gorevCanvasi;
 
     void Start()
     {
-        // 1. Oyun başladığı an diğer arayüzleri GİZLE
+        // 1. Oyun baÅŸladÄ±ÄŸÄ± an diÄŸer arayÃ¼zleri GÄ°ZLE
         if (saatCanvasi != null) saatCanvasi.SetActive(false);
         if (gorevCanvasi != null) gorevCanvasi.SetActive(false);
 
-        // 2. Zamanı dondur ve fareyi serbest bırak
+        // 2. ZamanÄ± dondur ve fareyi serbest bÄ±rak
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -20,16 +20,13 @@ public class TutorialSistemi : MonoBehaviour
 
     public void OyunaBasla()
     {
-        // 1. Zamanı normal akışına döndür ve fareyi gizle
         Time.timeScale = 1f;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.None;  // â† deÄŸiÅŸti
+        Cursor.visible = true;                    // â† deÄŸiÅŸti
 
-        // 2. Oyun başladığı için arayüzleri (Saat ve Görevler) GÖRÜNÜR YAP
         if (saatCanvasi != null) saatCanvasi.SetActive(true);
         if (gorevCanvasi != null) gorevCanvasi.SetActive(true);
 
-        // 3. Tutorial Canvas'ını (kendisini) tamamen kapat
         gameObject.SetActive(false);
     }
 }
