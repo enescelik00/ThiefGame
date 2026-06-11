@@ -32,7 +32,7 @@ public class SureSistemi : MonoBehaviour
         // Böylece ekran açýldýðý an, o anki donmuþ süreyi gösterecek!
         if (bitisSuresiText != null)
         {
-            bitisSuresiText.text = "GECEN SURE: " + zamanMetni;
+            bitisSuresiText.text = "Yakalanana Kadar Geçen Süre: " + zamanMetni;
         }
     }
 }
