@@ -289,5 +289,6 @@ MonoBehaviour:
   gorusMesafesi: 8
   gorusAcisi: 60
   yakalamaMesafesi: 1.5
+  hissetmeMesafesi: 1.5
   gozNoktasi: {fileID: 0}
   yakalanmaEkrani: {fileID: 0}

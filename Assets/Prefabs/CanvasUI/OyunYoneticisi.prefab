@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7678287876238124696}
   - component: {fileID: 6685763352544999659}
   - component: {fileID: 3226709516748363859}
+  - component: {fileID: 2712150103257295896}
   m_Layer: 0
   m_Name: OyunYoneticisi
   m_TagString: Untagged
@@ -60,3 +61,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GorevSistemi
   gorevYazisi: {fileID: 0}
+--- !u!114 &2712150103257295896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5385903356393390387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b815ff17f94386429baa1be1ca756d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractButtonManager
+  interactButton: {fileID: 0}

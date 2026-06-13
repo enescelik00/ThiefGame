@@ -33,6 +33,8 @@ public class LevelManagerScript : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1f;
+
         // Oyun baþladýðýnda zorluk panelini kapalý tut
         if (difficultyPanel != null)
             difficultyPanel.SetActive(false);
@@ -94,13 +96,13 @@ public class LevelManagerScript : MonoBehaviour
 
     public void OnKolayClicked()
     {
-        LoadGameScene("level1");
+        LoadGameScene("LEVEL1");
     }
 
     public void OnOrtaClicked()
     {
         if (PlayerPrefs.GetInt("LevelProgress", 1) >= 2)
-            LoadGameScene("level2");
+            LoadGameScene("LEVEL2");
         else
             ShowLockedWarning(); // Eðer bölüm kilitliyse senin yazdýðýn uyarýyý ver!
     }
@@ -108,7 +110,7 @@ public class LevelManagerScript : MonoBehaviour
     public void OnZorClicked()
     {
         if (PlayerPrefs.GetInt("LevelProgress", 1) >= 3)
-            LoadGameScene("level3");
+            LoadGameScene("LEVEL3");
         else
             ShowLockedWarning();
     }
@@ -146,7 +148,10 @@ public class LevelManagerScript : MonoBehaviour
     {
         warningText.text = "BU BÖLÜM ÞU AN KÝLÝTLÝ!";
         warningPanel.SetActive(true);
-        yield return new WaitForSeconds(2f);
+
+        // Oyun zamanýndan baðýmsýz olarak (gerçek hayatta) 2 saniye bekle
+        yield return new WaitForSecondsRealtime(2f);
+
         warningPanel.SetActive(false);
     }
 

@@ -4,35 +4,24 @@ using UnityEngine.Events;
 public class MinigameTrigger : MonoBehaviour
 {
     [Header("Minigame Ayarlarý")]
-    public GameObject minigamePrefab; // Hangi minigame açýlacak? (Inspector'dan sürükle)
-    public MinigameDifficulty difficulty; // Zorluk ne olacak? (Inspector'dan seç)
+    public GameObject minigamePrefab;
+    public MinigameDifficulty difficulty;
 
     [Header("Sonuçlar")]
-    public UnityEvent OnUnlock; // Minigame geçilince ne olsun? (Kapý açýlsýn animasyonu vb.)
-
-    private bool isPlayerNear = false;
-
-    void Update()
-    {
-        // Oyuncu yakýndaysa ve E tuþuna basarsa
-        if (isPlayerNear && Input.GetKeyDown(KeyCode.E))
-        {
-            StartMinigame();
-        }
-    }
+    public UnityEvent OnUnlock;
 
     void StartMinigame()
     {
-        // 1. Sahnede var olan ana UI Canvas'ý bul
+        // Butona basýldýðýnda butonun kendisini gizleyelim ki oyun oynanýrken ekranda kalmasýn
+        InteractButtonManager.Instance.HideButton();
+
         Canvas mainCanvas = FindFirstObjectByType<Canvas>();
         GameObject spawnedMinigame;
 
-        // 2. Prefabý Canvas'ýn içine (alt objesi olarak) üret
         if (mainCanvas != null)
         {
             spawnedMinigame = Instantiate(minigamePrefab, mainCanvas.transform);
 
-            // UI'ýn ekranýn ortasýna tam oturmasý için pozisyonunu sýfýrla
             RectTransform rect = spawnedMinigame.GetComponent<RectTransform>();
             if (rect != null)
             {
@@ -42,11 +31,9 @@ public class MinigameTrigger : MonoBehaviour
         }
         else
         {
-            // Eðer sahnede henüz hiç Canvas yoksa normal üret (Güvenlik önlemi)
             spawnedMinigame = Instantiate(minigamePrefab);
         }
 
-        // 3. Ýçindeki MinigameBase scriptini bul
         MinigameBase minigameScript = spawnedMinigame.GetComponent<MinigameBase>();
 
         if (minigameScript != null)
@@ -64,23 +51,30 @@ public class MinigameTrigger : MonoBehaviour
     {
         Debug.Log("Minigame baþarýyla tamamlandý! Kasa/Kapý açýlýyor...");
 
-        // 1. Oyuncunun hareketini geri aç
-
-        // 2. Inspector'dan atadýðýn olaylarý tetikle (Örn: Kapý animasyonunu oynat)
         OnUnlock?.Invoke();
 
-        // 3. Bu tetikleyiciyi kapat ki tekrar ayný kasayý açmaya çalýþmasýn
         this.enabled = false;
+
+        // Obje açýldýðý için collider'ýný da kapatabiliriz (isteðe baðlý)
+        Collider col = GetComponent<Collider>();
+        if (col != null) col.enabled = false;
     }
 
-    // Oyuncunun menzile girip girmediðini kontrol etme
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) isPlayerNear = true;
+        if (other.CompareTag("Player"))
+        {
+            // Oyuncu alana girdiðinde butonu göster ve butona basýldýðýnda StartMinigame fonksiyonunu çalýþtýr de
+            InteractButtonManager.Instance.ShowButton(StartMinigame);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player")) isPlayerNear = false;
+        if (other.CompareTag("Player"))
+        {
+            // Oyuncu alandan çýkarsa butonu gizle
+            InteractButtonManager.Instance.HideButton();
+        }
     }
 }

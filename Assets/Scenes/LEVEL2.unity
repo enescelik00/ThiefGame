@@ -5538,6 +5538,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2712150103257295896, guid: bbfa1614e93c016458624b428950aabc, type: 3}
+      propertyPath: interactButton
+      value: 
+      objectReference: {fileID: 1248861197}
     - target: {fileID: 3226709516748363859, guid: bbfa1614e93c016458624b428950aabc, type: 3}
       propertyPath: gorevYazisi
       value: 
@@ -6283,6 +6287,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6317160372807360217, guid: 2520cb1d110d6854dbaa239b857a35ac, type: 3}
   m_PrefabInstance: {fileID: 1248861195}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1248861197 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2271157307762153171, guid: 2520cb1d110d6854dbaa239b857a35ac, type: 3}
+  m_PrefabInstance: {fileID: 1248861195}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1001 &1255363322
 PrefabInstance:
   m_ObjectHideFlags: 0
