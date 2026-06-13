@@ -31,10 +31,16 @@ public class SandikSistemi : MonoBehaviour
             // Eðer sandýk doluysa ve içine bir eþya koyduysak (boþ deðilse)
             if (iciDoluMu && icindekiEsyaPrefab != null)
             {
+                // YENÝ EKLENEN KISIM: Ses tam burada, eþya ortaya çýkarken (sandýk açýlýrken) çalacak!
+                if (SesYoneticisi.instance != null)
+                {
+                    SesYoneticisi.instance.SandikSesiniCal();
+                }
+
                 // Eþyanýn kopyasýný oluþtur ve ekranýn ortasýndaki yuvaya yerleþtir
                 ekrandakiEsya = Instantiate(icindekiEsyaPrefab, esyaYuvasi);
 
-                // YENÝ EKLENEN KISIM: Eþyanýn pozisyonunu zorla sýfýrla (Tam ortaya oturt)
+                // Eþyanýn pozisyonunu zorla sýfýrla (Tam ortaya oturt)
                 ekrandakiEsya.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 
                 iciDoluMu = false; // Sandýðýn içi artýk boþaldý

@@ -12,6 +12,12 @@ public class KacisKontrol : MonoBehaviour
         {
             if (kazanmaEkrani != null)
             {
+                // YENÝ EKLENEN KISIM: Zaman donmadan hemen önce kazanma sesini çal!
+                if (SesYoneticisi.instance != null)
+                {
+                    SesYoneticisi.instance.KazanmaSesiniCal();
+                }
+
                 // Kazanma ekranýný aktif et (O ekran açýlýnca ganimetleri hesaplayan kod otomatik çalýþacak)
                 kazanmaEkrani.SetActive(true);
 

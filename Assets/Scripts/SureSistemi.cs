@@ -9,6 +9,10 @@ public class SureSistemi : MonoBehaviour
 
     private float gecenSure = 0f;
 
+    void Start()
+    {
+        Time.timeScale = 1f;
+    }
     void Update()
     {
         // Time.deltaTime, oyun donduðunda (Time.timeScale = 0) otomatik durur.
