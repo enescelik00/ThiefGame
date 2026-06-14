@@ -1,9 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Audio; // Mixer için þart
-using TMPro; // Dropdown için þart
+using UnityEngine.Audio;
+using TMPro;
 using System.Collections;
-using System.Collections.Generic;
 
 public class SettingsManager : MonoBehaviour
 {
@@ -22,6 +21,16 @@ public class SettingsManager : MonoBehaviour
     [Header("Dil Seçimi")]
     public TMP_Dropdown languageDropdown;
 
+    void Awake()
+    {
+        // Inspector'daki kopmalarý önlemek için baðlantýlarý KOD ile kuruyoruz.
+        // Bu sayede prefablar asla baðlantýyý unutamaz.
+        if (musicSlider != null) musicSlider.onValueChanged.AddListener(SetMusicVolume);
+        if (soundSlider != null) soundSlider.onValueChanged.AddListener(SetSoundVolume);
+        if (vibrationToggle != null) vibrationToggle.onValueChanged.AddListener(SetVibration);
+        if (languageDropdown != null) languageDropdown.onValueChanged.AddListener(SetLanguage);
+    }
+
     void Start()
     {
         LoadSettings();
@@ -30,7 +39,6 @@ public class SettingsManager : MonoBehaviour
     // --- SES FONKSÝYONLARI ---
     public void SetMusicVolume(float value)
     {
-        // Logaritmik dönüþüm: 0.0001 ile 1 arasýný -80dB ile 0dB arasýna çeker
         float dbValue = Mathf.Log10(Mathf.Max(0.0001f, value)) * 20;
         mainMixer.SetFloat("MusicVol", dbValue);
         PlayerPrefs.SetFloat("MusicVolume", value);
@@ -48,10 +56,9 @@ public class SettingsManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("LanguageIndex", index);
         Debug.Log("Seçilen Dil ID: " + index);
-        // Burada ileride Localization paketini tetikleyeceðiz
     }
 
-    // --- TÝTREÞÝM (Önceki Turn'den) ---
+    // --- TÝTREÞÝM ---
     public void SetVibration(bool isOn)
     {
         PlayerPrefs.SetInt("Vibration", isOn ? 1 : 0);
@@ -88,9 +95,9 @@ public class SettingsManager : MonoBehaviour
         soundSlider.value = sVol;
         SetSoundVolume(sVol);
 
-        // Titreþimi Yükle
+        // Titreþimi Yükle (SetIsOnWithoutNotify eventin 2 kez tetiklenmesini önler)
         bool isVib = PlayerPrefs.GetInt("Vibration", 1) == 1;
-        vibrationToggle.isOn = isVib;
+        vibrationToggle.SetIsOnWithoutNotify(isVib);
         toggleHandle.anchoredPosition = new Vector2(isVib ? onPositionX : offPositionX, toggleHandle.anchoredPosition.y);
         toggleBackground.color = isVib ? onColor : offColor;
 

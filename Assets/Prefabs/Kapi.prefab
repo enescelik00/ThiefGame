@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e12b8df680f0284691d0b03b1b10c88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MinigameTrigger
-  minigamePrefab: {fileID: 46444857428261544, guid: ea68f18e723d17047829ae5aa5f143d6, type: 3}
+  minigamePrefab: {fileID: 9044119887183575909, guid: 5da078242c6a68143a7e3d796107e536, type: 3}
   difficulty: 0
   OnUnlock:
     m_PersistentCalls:
@@ -231,6 +231,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SesYoneticisi, Assembly-CSharp
+        m_MethodName: KapiSesiniCal
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

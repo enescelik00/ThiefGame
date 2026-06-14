@@ -39,7 +39,12 @@ public class MinigameTrigger : MonoBehaviour
         if (minigameScript != null)
         {
             minigameScript.SetupDifficulty(difficulty);
+
+            // Baþarý durumunu dinle
             minigameScript.OnMinigameSuccess += HandleSuccess;
+
+            // YENÝ EKLENEN KISIM: Çýkýþ (iptal) durumunu dinle
+            minigameScript.OnMinigameCancel += HandleCancel;
         }
         else
         {
@@ -58,6 +63,15 @@ public class MinigameTrigger : MonoBehaviour
         // Obje açýldýðý için collider'ýný da kapatabiliriz (isteðe baðlý)
         Collider col = GetComponent<Collider>();
         if (col != null) col.enabled = false;
+    }
+
+    // YENÝ EKLENEN FONKSÝYON: Minigame X tuþuyla kapatýldýðýnda çalýþýr
+    void HandleCancel()
+    {
+        Debug.Log("Minigame iptal edildi, etkileþim butonu geri geliyor...");
+
+        // Oyuncu hala etkileþim alanýnýn (trigger) içinde olduðu için butonu ve StartMinigame'i tekrar çaðýr
+        InteractButtonManager.Instance.ShowButton(StartMinigame);
     }
 
     private void OnTriggerEnter(Collider other)
