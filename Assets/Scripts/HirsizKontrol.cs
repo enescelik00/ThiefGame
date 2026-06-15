@@ -8,7 +8,7 @@ public class HirsizKontrol : MonoBehaviour
 
     [Header("Arayüz (UI) Bağlantıları")]
     public GameObject yakalanmaEkrani;
-    public VirtualJoystick virtualJoystick; // ← YENİ
+    public VirtualJoystick virtualJoystick; // Joystick referansımız
 
     private Rigidbody rb;
     private Animator anim;
@@ -16,10 +16,20 @@ public class HirsizKontrol : MonoBehaviour
     private bool yakalandiMi = false;
     public bool hackYapiyorMu = false;
 
+    // Performans: Kamerayı her frame aratmak yerine Start'ta hafızaya alıyoruz
+    private Camera anaKamera;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        anaKamera = Camera.main;
+
+        // YENİ EKLENEN SATIR: Sahnede aktif olan VirtualJoystick scriptini otomatik bulur ve atanır!
+        if (virtualJoystick == null)
+        {
+            virtualJoystick = FindFirstObjectByType<VirtualJoystick>();
+        }
 
         if (yakalanmaEkrani != null)
             yakalanmaEkrani.SetActive(false);
@@ -27,24 +37,27 @@ public class HirsizKontrol : MonoBehaviour
 
     void Update()
     {
+        // 1. KURŞUN GEÇİRMEZ KONTROL: Eğer joystick referansı kopmuşsa (sahne yenilendiği için vs.), hemen yenisini bul!
+        if (virtualJoystick == null)
+        {
+            virtualJoystick = FindFirstObjectByType<VirtualJoystick>();
+        }
+
+        // 2. Karakter yakalandıysa veya minigame oynuyorsa hareket kodlarını atla
         if (yakalandiMi || hackYapiyorMu) return;
 
-        // Klavye + Joystick birlikte çalışır
+        // --- Yürüme Mantığı ---
         float yatay = Input.GetAxisRaw("Horizontal");
         float dikey = Input.GetAxisRaw("Vertical");
 
-        if (virtualJoystick != null)
+        if (virtualJoystick != null && virtualJoystick.InputVector.magnitude > 0.05f)
         {
-            Vector2 joystickInput = virtualJoystick.InputVector;
-            if (joystickInput.magnitude > 0.1f)
-            {
-                yatay = joystickInput.x;
-                dikey = joystickInput.y;
-            }
+            yatay = virtualJoystick.InputVector.x;
+            dikey = virtualJoystick.InputVector.y;
         }
 
-        Vector3 kameraIleri = Camera.main.transform.forward;
-        Vector3 kameraSag = Camera.main.transform.right;
+        Vector3 kameraIleri = anaKamera.transform.forward;
+        Vector3 kameraSag = anaKamera.transform.right;
 
         kameraIleri.y = 0f;
         kameraSag.y = 0f;
@@ -53,7 +66,8 @@ public class HirsizKontrol : MonoBehaviour
 
         hareketYonu = (kameraIleri * dikey + kameraSag * yatay).normalized;
 
-        anim.SetBool("isWalking", hareketYonu.magnitude > 0.1f);
+        bool yuruyorMu = Mathf.Abs(yatay) > 0.05f || Mathf.Abs(dikey) > 0.05f;
+        anim.SetBool("isWalking", yuruyorMu);
     }
 
     void FixedUpdate()
@@ -65,10 +79,12 @@ public class HirsizKontrol : MonoBehaviour
             return;
         }
 
+        // Hızı uygula (Yerçekimini bozmadan)
         Vector3 yeniHiz = hareketYonu * yurumeHizi;
         yeniHiz.y = rb.linearVelocity.y;
         rb.linearVelocity = yeniHiz;
 
+        // Karakteri hareket yönüne yumuşakça döndür
         if (hareketYonu != Vector3.zero)
         {
             Quaternion hedefRotasyon = Quaternion.LookRotation(hareketYonu);

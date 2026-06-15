@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 7532580948141062981}
   - component: {fileID: 4714534955150579061}
   - component: {fileID: 149570915649841760}
-  - component: {fileID: 585324693536157081}
+  - component: {fileID: 1732241468092670087}
   m_Layer: 5
   m_Name: JoystickBackground
   m_TagString: Untagged
@@ -177,12 +177,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5120710314566166971}
   m_Father: {fileID: 7635656104423795504}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -250, y: -65}
   m_SizeDelta: {x: 320, y: 320}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4714534955150579061
@@ -223,20 +224,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &585324693536157081
-MonoBehaviour:
+--- !u!225 &1732241468092670087
+CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 651331005777821254}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df15ff75b236dbb4ca6537adba97e976, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::VirtualJoystick
-  handle: {fileID: 5120710314566166971}
-  handleRange: 100
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1885053276462128451
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,12 +261,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1885053276462128451}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7635656104423795504}
+  m_Father: {fileID: 7532580948141062981}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1262,6 +1261,7 @@ GameObject:
   - component: {fileID: 7635656104423795504}
   - component: {fileID: 6490769235780116167}
   - component: {fileID: 3096211894900177557}
+  - component: {fileID: 6932456402644814506}
   m_Layer: 5
   m_Name: JoystickArea
   m_TagString: Untagged
@@ -1282,13 +1282,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7532580948141062981}
-  - {fileID: 5120710314566166971}
   m_Father: {fileID: 6317160372807360217}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 210, y: 210}
-  m_SizeDelta: {x: 320, y: 320}
+  m_AnchoredPosition: {x: 475, y: 300}
+  m_SizeDelta: {x: 950, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6490769235780116167
 CanvasRenderer:
@@ -1328,6 +1327,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6932456402644814506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8841824997271036135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df15ff75b236dbb4ca6537adba97e976, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VirtualJoystick
+  joystickBackground: {fileID: 7532580948141062981}
+  handle: {fileID: 5120710314566166971}
+  handleRange: 100
+  gizleKullanilmadiginda: 0
 --- !u!1001 &5971411347751946970
 PrefabInstance:
   m_ObjectHideFlags: 0
