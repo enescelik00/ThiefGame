@@ -62,7 +62,7 @@ public class GorevSistemi : MonoBehaviour
         else
         {
             // İŞTE BURASI! Kasa da açıldığında bu kırmızı ve kalın yazı devreye girecek.
-            metin += "<color=red><b>■ 🏃‍♂️ Çıkışa Ulaş ve Kaç!</b></color>\n";
+            metin += "<color=red><b>■ Çıkışa Ulaş ve Kaç!</b></color>\n";
         }
 
         gorevYazisi.text = metin;
