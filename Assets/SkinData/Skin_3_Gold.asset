@@ -15,4 +15,8 @@ MonoBehaviour:
   skinID: 3
   skinName: Gold
   price: 5000
-  skinIcon: {fileID: 0}
+  skinPrefab: {fileID: 5396872511015412328, guid: 8b4828fb71e6b434eac38a541425883f, type: 3}
+  skinIcon: {fileID: 21300000, guid: 353fc32a1af337f40b8fe0127fbde20a, type: 3}
+  arkaPlanResmi: {fileID: 21300000, guid: 94324a8be84006a40a7257977ee0463e, type: 3}
+  butonResmi: {fileID: 21300000, guid: a07c1ced17d91b44088e9d5f2ccbbe9b, type: 3}
+  glowRengi: {r: 0.78113204, g: 0.6547248, b: 0.05158408, a: 1}

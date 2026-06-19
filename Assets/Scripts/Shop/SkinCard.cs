@@ -4,11 +4,15 @@ using TMPro;
 
 public class SkinCard : MonoBehaviour
 {
-    public Image skinIcon;
+    public int skinIndex;
     public TextMeshProUGUI skinNameText;
     public TextMeshProUGUI priceText;
-    public Button actionButton;
     public TextMeshProUGUI buttonText;
+    public Button actionButton;
 
-    [HideInInspector] public int skinIndex; // Bu kartýn hangi skine ait olduðunu tutacak
+    [Header("UI Görselleri")]
+    public Image skinIcon;
+    public Image arkaPlanImage; // Kartýn arka plan objesi
+    public Image butonImage;    // Butonun görsel objesi
+    public Image glowImage;     // Kapatýp açacaðýmýz ýþýklý çerçeve objesi
 }

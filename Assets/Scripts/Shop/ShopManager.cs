@@ -8,10 +8,14 @@ public class ShopManager : MonoBehaviour
     public SkinItem[] skinDatabase;
     public GameObject skinCardPrefab;
     public Transform shopContent;
-    public TextMeshProUGUI toplamParaText; // Sað üstteki para yazýmýz (YENÝ EKLENDÝ)
+    public TextMeshProUGUI toplamParaText;
 
     [Header("Stüdyo Baðlantýsý")]
-    public GameObject studyoManken; // Mankenin rengini/materyalini deðiþtirmek için
+    public Transform vitrinPlatformu; // Karakterlerin doðacaðý platform (Magaza_Studio)
+    private GameObject mevcutManken;    // O an ekranda dönen karakteri hafýzada tutmak için
+
+    // YENÝ: Sahnede o an var olan kartlarý takip etmek için liste
+    private System.Collections.Generic.List<SkinCard> olusturulanKartlar = new System.Collections.Generic.List<SkinCard>();
 
     private void Start()
     {
@@ -22,17 +26,32 @@ public class ShopManager : MonoBehaviour
         if (!PlayerPrefs.HasKey("EquippedSkinID"))
             PlayerPrefs.SetInt("EquippedSkinID", 0);
 
-        ParaYazisiniGuncelle(); // Baþlangýçta paramýzý ekrana yaz
+        ParaYazisiniGuncelle();
         MagazayiOlustur();
+
+        // Baþlangýçta kuþanýlmýþ olan skini vitrinde otomatik göster
+        BaslangicSkininiGoster();
+    }
+
+    private void BaslangicSkininiGoster()
+    {
+        int kusanilanSkinID = PlayerPrefs.GetInt("EquippedSkinID", 0);
+        foreach (SkinItem skin in skinDatabase)
+        {
+            if (skin.skinID == kusanilanSkinID)
+            {
+                SkiniOnizle(skin);
+                break;
+            }
+        }
     }
 
     private void ParaYazisiniGuncelle()
     {
         if (toplamParaText != null)
         {
-            // Ekip arkadaþýnýn kaydettiði "ToplamParam" anahtarýný okuyoruz
             int guncelPara = PlayerPrefs.GetInt("ToplamParam", 0);
-            toplamParaText.text = "$ " + guncelPara.ToString("N0"); // 15000 yerine 15.000 yazar
+            toplamParaText.text = "$ " + guncelPara.ToString("N0");
         }
     }
 
@@ -48,46 +67,111 @@ public class ShopManager : MonoBehaviour
             kartScript.skinIndex = currentSkin.skinID;
             kartScript.skinNameText.text = currentSkin.skinName;
 
-            if (currentSkin.skinIcon != null)
+            // --- YENÝ EKLENEN: GÖRSELLERÝ DATADAN ÇEKÝP KARTA GÝYDÝRME ---
+            if (currentSkin.skinIcon != null && kartScript.skinIcon != null)
                 kartScript.skinIcon.sprite = currentSkin.skinIcon;
+
+            if (currentSkin.arkaPlanResmi != null && kartScript.arkaPlanImage != null)
+                kartScript.arkaPlanImage.sprite = currentSkin.arkaPlanResmi;
+
+            if (currentSkin.butonResmi != null && kartScript.butonImage != null)
+                kartScript.butonImage.sprite = currentSkin.butonResmi;
+
+            // Glow Rengini Ayarla ve Baþlangýçta Kapalý Tut
+            if (kartScript.glowImage != null)
+            {
+                kartScript.glowImage.color = currentSkin.glowRengi;
+                kartScript.glowImage.gameObject.SetActive(false);
+            }
+            // -------------------------------------------------------------
 
             ButonDurumunuGuncelle(kartScript, currentSkin);
 
-            // 1. Satýn Al/Kuþan Butonuna Týklama (Zaten vardý)
+            // 1. Satýn Al/Kuþan Butonuna Týklama
             kartScript.actionButton.onClick.AddListener(() => ButonaTiklandi(kartScript, currentSkin));
 
-            // 2. KARTIN KENDÝSÝNE Týklama (ÖNÝZLEME ÝÇÝN - YENÝ EKLENDÝ)
+            // 2. Kartýn Kendisine Týklama (Önizleme)
             Button kartAnaButon = yeniKartObjesi.GetComponent<Button>();
             if (kartAnaButon != null)
             {
                 kartAnaButon.onClick.AddListener(() => SkiniOnizle(currentSkin));
             }
+
+            // Oluþturulan kartý listemize ekleyelim ki glow'unu kontrol edebilelim
+            olusturulanKartlar.Add(kartScript);
         }
     }
 
-    // YENÝ EKLENEN ÖNÝZLEME FONKSÝYONU
     private void SkiniOnizle(SkinItem skin)
     {
-        Debug.Log("Vitrin Güncellendi: " + skin.skinName);
-
-        if (studyoManken != null)
+        if (skin == null)
         {
-            // Önce skin ID'sine göre hangi rengi vereceðimizi seçelim
-            Color yeniRenk = Color.white;
-            if (skin.skinID == 0) yeniRenk = Color.white;
-            else if (skin.skinID == 1) yeniRenk = Color.magenta;
-            else if (skin.skinID == 2) yeniRenk = Color.black;
-            else yeniRenk = Color.yellow;
+            Debug.LogError("Hata: Týklanan SkinItem dosyasý boþ (null)!");
+            return;
+        }
 
-            // BÜYÜ BURADA: Mankenin içindeki TÜM parçalarý (Mesh veya SkinnedMesh fark etmez) bul
-            Renderer[] tumParcalar = studyoManken.GetComponentsInChildren<Renderer>();
+        Debug.Log("Vitrin Güncellenmeye Çalýþýlýyor: " + skin.skinName);
 
-            // Hepsini tek tek boya
-            foreach (Renderer parca in tumParcalar)
+        if (vitrinPlatformu == null)
+        {
+            Debug.LogError("Hata: ShopManager içindeki 'Vitrin Platformu' alaný boþ! ");
+            return;
+        }
+
+        if (skin.skinPrefab == null)
+        {
+            Debug.LogError($"Hata: [{skin.skinName}] isimli ScriptableObject dosyasýnýn içindeki 'Skin Prefab' alaný BOÞ!");
+            return;
+        }
+
+        // 1. Eski mankeni sil
+        if (mevcutManken != null)
+        {
+            Destroy(mevcutManken);
+        }
+
+        // 2. Yeni skini doðurt
+        mevcutManken = Instantiate(skin.skinPrefab, vitrinPlatformu);
+
+        // 3. Pozisyon sýfýrlama
+        mevcutManken.transform.localPosition = Vector3.zero;
+        mevcutManken.transform.localRotation = Quaternion.Euler(0, 180, 0);
+
+        // KRÝTÝK: Model boyutu ayarý
+        mevcutManken.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+
+        Debug.Log($"Baþarýlý: [{skin.skinName}] stüdyoda baþarýyla oluþturuldu!");
+
+        foreach (SkinCard kart in olusturulanKartlar)
+        {
+            if (kart.skinIndex == skin.skinID)
             {
-                parca.material.color = yeniRenk;
+                // Seçilen kartý %5 büyüt ve öne çýkar
+                kart.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
+
+                // Ýsteðe baðlý: Eðer kartýn arkasýndaki rengi de koddan hafifçe deðiþtirmek istersen:
+                // kart.arkaPlanImage.color = skin.glowRengi; 
+            }
+            else
+            {
+                // Seçilmeyen diðer tüm kartlarý normal boyutuna (1) geri döndür
+                kart.transform.localScale = Vector3.one;
+
+                // kart.arkaPlanImage.color = Color.white; // Normal rengine çek
             }
         }
+
+        // --- YENÝ EKLENEN: GLOW AÇ/KAPAT MANTIÐI ---
+        // Sadece önizlenen kartýn ýþýðýný aç, diðerlerininkini kapat
+        foreach (SkinCard kart in olusturulanKartlar)
+        {
+            if (kart.glowImage != null)
+            {
+                // Kartýn ID'si seçili ID ile aynýysa TRUE (yanar), deðilse FALSE (söner)
+                kart.glowImage.gameObject.SetActive(kart.skinIndex == skin.skinID);
+            }
+        }
+        // -------------------------------------------
     }
 
     private void ButonDurumunuGuncelle(SkinCard kart, SkinItem skin)
@@ -99,18 +183,20 @@ public class ShopManager : MonoBehaviour
         {
             kart.buttonText.text = "KUÞANILDI";
             kart.actionButton.interactable = false;
-            kart.priceText.text = "";
+            kart.priceText.text = "SATIN ALINDI"; // Deðiþtirildi: Boþ býrakmak yerine Satýn Alýndý yazýyor
         }
         else if (satinAlindiMi)
         {
             kart.buttonText.text = "KUÞAN";
             kart.actionButton.interactable = true;
-            kart.priceText.text = "";
+            kart.priceText.text = "SATIN ALINDI"; // Deðiþtirildi: Boþ býrakmak yerine Satýn Alýndý yazýyor
         }
         else
         {
             kart.buttonText.text = "SATIN AL";
             kart.actionButton.interactable = true;
+
+            // Fiyat 0 ise "ÜCRETSÝZ", deðilse normal fiyatý basar
             kart.priceText.text = skin.price == 0 ? "ÜCRETSÝZ" : "$ " + skin.price.ToString("N0");
         }
     }
@@ -123,21 +209,20 @@ public class ShopManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("EquippedSkinID", skin.skinID);
             Debug.Log(skin.skinName + " kuþanýltý!");
+            SkiniOnizle(skin); // Kuþanýldýðýnda vitrindeki görüntüyü de güncelle
         }
         else
         {
-            // Ekip arkadaþýnýn sistemiyle entegre bakiye kontrolü
             int paramiz = PlayerPrefs.GetInt("ToplamParam", 0);
             if (paramiz >= skin.price)
             {
-                // Parayý düþ ve yeni bakiyeyi kaydet
                 PlayerPrefs.SetInt("ToplamParam", paramiz - skin.price);
                 PlayerPrefs.SetInt("SkinUnlocked_" + skin.skinID, 1);
                 PlayerPrefs.SetInt("EquippedSkinID", skin.skinID);
                 Debug.Log(skin.skinName + " satýn alýndý!");
 
-                // Sað üstteki paramýzý anýnda güncelle
                 ParaYazisiniGuncelle();
+                SkiniOnizle(skin); // Satýn alýndýðýnda vitrindeki görüntüyü de güncelle
             }
             else
             {
@@ -156,5 +241,6 @@ public class ShopManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        olusturulanKartlar.Clear(); // YENÝ: Listeyi sýfýrla ki eski silinmiþ kartlar hafýzada kalmasýn
     }
 }

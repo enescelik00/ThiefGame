@@ -22,10 +22,12 @@ public class HirsizKontrol : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        anim = GetComponent<Animator>();
         anaKamera = Camera.main;
 
-        // YENİ EKLENEN SATIR: Sahnede aktif olan VirtualJoystick scriptini otomatik bulur ve atanır!
+        // NOT: anim = GetComponent<Animator>(); satırı SİLİNDİ. 
+        // Çünkü Animator artık ana objede değil, sonradan doğacak olan skin prefabının içinde.
+
+        // Sahnede aktif olan VirtualJoystick scriptini otomatik bulur ve atanır!
         if (virtualJoystick == null)
         {
             virtualJoystick = FindFirstObjectByType<VirtualJoystick>();
@@ -37,13 +39,23 @@ public class HirsizKontrol : MonoBehaviour
 
     void Update()
     {
-        // 1. KURŞUN GEÇİRMEZ KONTROL: Eğer joystick referansı kopmuşsa (sahne yenilendiği için vs.), hemen yenisini bul!
+        // --- 1. YENİ EKLENEN ANİMATÖR GÜVENLİK KONTROLÜ ---
+        // Eğer animator henüz bulunamadıysa (skin prefabı yükleniyorsa) alt objelerde aramaya devam et.
+        if (anim == null)
+        {
+            anim = GetComponentInChildren<Animator>();
+
+            // Eğer hala bulamadıysa (doğma aşamasındaysa) aşağıdaki hareket kodlarına geçme, hata vermemesi için bekle.
+            if (anim == null) return;
+        }
+
+        // --- 2. KURŞUN GEÇİRMEZ KONTROL: Eğer joystick referansı kopmuşsa hemen yenisini bul!
         if (virtualJoystick == null)
         {
             virtualJoystick = FindFirstObjectByType<VirtualJoystick>();
         }
 
-        // 2. Karakter yakalandıysa veya minigame oynuyorsa hareket kodlarını atla
+        // --- 3. Karakter yakalandıysa veya minigame oynuyorsa hareket kodlarını atla
         if (yakalandiMi || hackYapiyorMu) return;
 
         // --- Yürüme Mantığı ---
@@ -67,6 +79,8 @@ public class HirsizKontrol : MonoBehaviour
         hareketYonu = (kameraIleri * dikey + kameraSag * yatay).normalized;
 
         bool yuruyorMu = Mathf.Abs(yatay) > 0.05f || Mathf.Abs(dikey) > 0.05f;
+
+        // Artık anim değişkeninin dolu olduğundan %100 eminiz, hata vermeden çalışacaktır.
         anim.SetBool("isWalking", yuruyorMu);
     }
 
@@ -75,7 +89,9 @@ public class HirsizKontrol : MonoBehaviour
         if (yakalandiMi || hackYapiyorMu)
         {
             rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
-            anim.SetBool("isWalking", false);
+
+            // Eğer animatör bulunduysa yürüme animasyonunu durdur
+            if (anim != null) anim.SetBool("isWalking", false);
             return;
         }
 
@@ -96,7 +112,9 @@ public class HirsizKontrol : MonoBehaviour
     {
         yakalandiMi = true;
         rb.linearVelocity = Vector3.zero;
-        anim.SetBool("isWalking", false);
+
+        // Eğer animatör bulunduysa yürüme animasyonunu durdur
+        if (anim != null) anim.SetBool("isWalking", false);
 
         if (yakalanmaEkrani != null)
             yakalanmaEkrani.SetActive(true);

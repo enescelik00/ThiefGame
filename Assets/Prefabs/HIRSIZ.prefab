@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &207546228981455170
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2695751308086301357}
+  m_Layer: 0
+  m_Name: Gorsel_Yuvasi
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2695751308086301357
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207546228981455170}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1861525086520973828}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2188694758668565999
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60,6 +91,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4372093788385109707, guid: 937389857e6391a42bb6259767678962, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 937389857e6391a42bb6259767678962, type: 3}
       propertyPath: m_Name
       value: HIRSIZ
@@ -77,12 +112,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8111781155169087978, guid: 937389857e6391a42bb6259767678962, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8111781155169087978, guid: 937389857e6391a42bb6259767678962, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: d4ae7de5be09a1d4891bce0fca7a6a94, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5866666021909216657, guid: 937389857e6391a42bb6259767678962, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 937389857e6391a42bb6259767678962, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2695751308086301357}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 937389857e6391a42bb6259767678962, type: 3}
       insertIndex: -1
@@ -93,6 +136,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 937389857e6391a42bb6259767678962, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1845443805957160758}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 937389857e6391a42bb6259767678962, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 837729274923680217}
   m_SourcePrefab: {fileID: 100100000, guid: 937389857e6391a42bb6259767678962, type: 3}
 --- !u!1 &1341694012565733566 stripped
 GameObject:
@@ -141,6 +187,7 @@ MonoBehaviour:
   yurumeHizi: 4
   donusHizi: 15
   yakalanmaEkrani: {fileID: 0}
+  virtualJoystick: {fileID: 0}
   hackYapiyorMu: 0
 --- !u!65 &1845443805957160758
 BoxCollider:
@@ -163,3 +210,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.88499165, y: 1.8047521, z: 1.1944448}
   m_Center: {x: -0.057504058, y: 0.91295195, z: 0.09722145}
+--- !u!114 &837729274923680217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341694012565733566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84905f050fb1900448c7b640f58fb43b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSkinLoader
+  skinDatabase:
+  - {fileID: 11400000, guid: ca61b3d5c838332448f2c78f41005e93, type: 2}
+  - {fileID: 11400000, guid: 1c8d349cb3712f24f8cb40889f56d703, type: 2}
+  - {fileID: 11400000, guid: 43edc844356936346a152326df6d089c, type: 2}
+  - {fileID: 11400000, guid: 166f68fb281b31943b80c37b18a9f476, type: 2}
+  gorselYuva: {fileID: 2695751308086301357}
+--- !u!4 &1861525086520973828 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 937389857e6391a42bb6259767678962, type: 3}
+  m_PrefabInstance: {fileID: 2188694758668565999}
+  m_PrefabAsset: {fileID: 0}

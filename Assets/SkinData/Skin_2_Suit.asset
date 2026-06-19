@@ -15,4 +15,8 @@ MonoBehaviour:
   skinID: 2
   skinName: Suit
   price: 1000
-  skinIcon: {fileID: 0}
+  skinPrefab: {fileID: 5184668201461459055, guid: 8b366982f3e9e194491df1a2fed92bc1, type: 3}
+  skinIcon: {fileID: 21300000, guid: de2fa3b73a121c64a808df386b9c2ec7, type: 3}
+  arkaPlanResmi: {fileID: 21300000, guid: 48e66b55707b5984384f987195063294, type: 3}
+  butonResmi: {fileID: 21300000, guid: bc1eb56d1d8e6ee4a912874cafa89e87, type: 3}
+  glowRengi: {r: 0, g: 0, b: 0, a: 1}
